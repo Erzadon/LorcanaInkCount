@@ -1,35 +1,16 @@
-# Lorcana Ink Curve Calculator
+# Lorcana Ink Calculator
 
-A React-based calculator for analyzing ink curves in Lorcana decks.
+This project is a simple React application for planning Lorcana deck ink curves. It allows you to input card costs and see how many inkables you should include for a desired success rate.
 
-## Prerequisites
+## Development
 
-- **Node.js** 18 or later
-- **npm** (comes with Node.js) or **Yarn**
-
-## Getting Started
-
-Install dependencies:
+Install dependencies and start a local dev server:
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm start
 ```
 
-Run the test suite:
+## License
 
-```bash
-npm test
-```
-
-Create a production build:
-
-```bash
-npm build
-```
-
+This project is licensed under the [MIT License](LICENSE).
