@@ -31,8 +31,15 @@ export default function InkCurveCalculator() {
       return;
     }
 
-    const totalCost = cardCounts.reduce((sum, count, cost) => sum + cost * count, 0);
-    const averageCost = totalCost / deckSize;
+    const totalCost = cardCounts.reduce(
+      (sum, count, cost) => sum + cost * count,
+      0
+    );
+
+    const averageCostDenominator =
+      manualInkables !== "" && totalCards !== deckSize ? totalCards : deckSize;
+
+    const averageCost = totalCost / averageCostDenominator;
 
     const targetTurn = Math.ceil(averageCost);
     const openingHand = 7;
@@ -45,9 +52,9 @@ export default function InkCurveCalculator() {
     const currentProbability =
       1 - cumulativeHypergeometric(targetTurn - 1, deckSize, inkablesInDeck, cardsSeen);
 
-    let inkablesNeeded = 0;
+    let inkablesNeeded = deckSize;
 
-    for (let inkables = 1; inkables <= deckSize; inkables++) {
+    for (let inkables = 0; inkables <= deckSize; inkables++) {
       const reqProb =
         1 - cumulativeHypergeometric(targetTurn - 1, deckSize, inkables, cardsSeen);
       if (reqProb >= targetAccuracy / 100) {
