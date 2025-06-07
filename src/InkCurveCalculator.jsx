@@ -42,16 +42,21 @@ export default function InkCurveCalculator() {
     const estimatedInkables = deckSize - totalCards;
     const inkablesInDeck = manualInkables !== "" ? Number(manualInkables) : estimatedInkables;
 
+    const currentProbability =
+      1 - cumulativeHypergeometric(targetTurn - 1, deckSize, inkablesInDeck, cardsSeen);
+
     let inkablesNeeded = 0;
-    let probability = 0;
 
     for (let inkables = 1; inkables <= deckSize; inkables++) {
-      probability = 1 - cumulativeHypergeometric(targetTurn - 1, deckSize, inkables, cardsSeen);
-      if (probability >= targetAccuracy / 100) {
+      const reqProb =
+        1 - cumulativeHypergeometric(targetTurn - 1, deckSize, inkables, cardsSeen);
+      if (reqProb >= targetAccuracy / 100) {
         inkablesNeeded = inkables;
         break;
       }
     }
+
+    const probability = currentProbability;
 
     const maxNonInkables = deckSize - inkablesNeeded;
 
